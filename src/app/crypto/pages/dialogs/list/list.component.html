@@ -1,0 +1,32 @@
+
+<div class="col-md-12">
+      <h4>Crypto List</h4>
+  
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Ticker</th>
+            <th scope="col">Name</th>
+            <th scope="col">Number of Coins</th>
+            <th scope="col">Market Capacity</th>
+            <th scope="col" style="min-width: 150px;">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let crypto of cryptos;">
+            <th scope="row">{{crypto.id}}</th>
+            <td><b>{{crypto.ticker}}</b></td>
+            <td>{{crypto.name}}</td>
+            <td>{{crypto.numberOfCoins}}</td>
+            <td>{{crypto.marketCap}}</td>
+            <td>
+              <button type="button" class="btn btn-danger" routerLink="/crypto/{{crypto.id}}">Edit</button>
+              <button type="button" class="btn btn-warning" (click)="deleteCrypto(crypto.id)">Delete</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+
+
