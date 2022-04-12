@@ -14,6 +14,7 @@ import { MainContentComponent } from './core/pages/main-content/main-content.com
 import { DetailComponent } from './crypto/pages/dialogs/detail/detail.component';
 import { ListComponent } from './crypto/pages/dialogs/list/list.component';
 import { DeleteComponent } from './crypto/pages/dialogs/delete/delete.component';
+import { CryptoService } from './crypto/service/crypto.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import { DeleteComponent } from './crypto/pages/dialogs/delete/delete.component'
     FormsModule,
     ReactiveFormsModule
   ],
-  providers: [],
+  providers: [CryptoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

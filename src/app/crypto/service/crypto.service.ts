@@ -1,7 +1,6 @@
 import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, catchError, Observable, throwError } from 'rxjs';
-import { CryptoCurrency } from 'src/app/core/models/cryptocurrency';
+import { catchError, Observable, throwError } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -9,7 +8,7 @@ import { CryptoCurrency } from 'src/app/core/models/cryptocurrency';
 export class CryptoService {
 
   apiUrl: string = 'http://localhost:8080/api/currencies';
-  
+
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 
