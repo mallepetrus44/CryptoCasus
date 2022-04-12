@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { CryptoService } from 'src/app/crypto/service/crypto.service';
 
 @Component({
@@ -10,19 +11,17 @@ import { CryptoService } from 'src/app/crypto/service/crypto.service';
 export class DetailComponent implements OnInit {
 
   currentCrypto: any;
-  message = '';
+  id!: number;
 
-  constructor(
-    private cryptoService: CryptoService,
-    private route: ActivatedRoute,
-    private router: Router) { }
+  constructor( @Inject(MAT_DIALOG_DATA) public data: number, private cryptoService: CryptoService, private router: Router) {
+    this.id = data;
+     }
 
   ngOnInit(): void {
-    this.message = '';
-    this.getCrypto(this.route.snapshot.paramMap.get('id'));
+    this.getCrypto(this.id);
   }
 
-  getCrypto(id: string | null): void {
+  getCrypto(id: number | null): void {
     this.cryptoService.getItem(id)
       .subscribe(
         (crypto: null) => {
@@ -34,28 +33,32 @@ export class DetailComponent implements OnInit {
         });
   }
 
-  updateCrypto(): void {
-    this.cryptoService.update(this.currentCrypto.id, this.currentCrypto)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.message = 'The crypto was updated!';
-        },
-        error => {
-          console.log(error);
-        });
+  ngOnDestroy(){
+    this.router.navigateByUrl('/cryptos');
   }
 
-  deleteCrypto(): void {
-    this.cryptoService.delete(this.currentCrypto.id)
-      .subscribe(
-        response => {
-          console.log(response);
-          this.router.navigate(['/cryptos']);
-        },
-        error => {
-          console.log(error);
-        });
-      }
+  // updateCrypto(): void {
+  //   this.cryptoService.update(this.currentCrypto.id, this.currentCrypto)
+  //     .subscribe(
+  //       response => {
+  //         console.log(response);
+  //         this.message = 'The crypto was updated!';
+  //       },
+  //       error => {
+  //         console.log(error);
+  //       });
+  // }
+
+  // deleteCrypto(): void {
+  //   this.cryptoService.delete(this.currentCrypto.id)
+  //     .subscribe(
+  //       response => {
+  //         console.log(response);
+  //         this.router.navigate(['/cryptos']);
+  //       },
+  //       error => {
+  //         console.log(error);
+  //       });
+  //     }
     
 }

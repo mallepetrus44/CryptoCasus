@@ -1,7 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource } from '@angular/material/table';
+import { Subscription } from 'rxjs';
 import { CryptoCurrency } from 'src/app/core/models/cryptocurrency';
 import { CryptoService } from 'src/app/crypto/service/crypto.service';
+import { DeleteComponent } from '../delete/delete.component';
 import { DetailComponent } from '../detail/detail.component';
 
 @Component({
@@ -11,54 +18,67 @@ import { DetailComponent } from '../detail/detail.component';
 })
 export class ListComponent implements OnInit {
 
+  private subs = new Subscription();
+
+  displayedColumns: string[] = ['id', 'ticker', 'name', 'numberOfCoins', 'marketCap','action'];
   cryptos: any;
-  currentCrypto:any;
-  currentIndex = -1;
-  searchTitle = '';
 
-  constructor( private dialog: MatDialog, private cryptoService: CryptoService) { }
+  public dataSource!: MatTableDataSource<CryptoCurrency>;
 
-  ngOnInit(): void {
-    this.getAllCryptos();
-  }
+  @ViewChild(MatPaginator, { static: true }) paginator!: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort!: MatSort;
 
-  // Get list
-  getAllCryptos(): void {
-    this.cryptoService.list()
-      .subscribe(
-        (cryptos: any) => {
-          this.cryptos = cryptos;
-        },
-        (error: any) => {
-          console.log(error);
-        });
-  }
+  private dataArray: any;
 
-  // Delete action
-  deleteCrypto(id:number){
-    this.cryptoService.delete(id)
-    .subscribe(
-      response => {
-        this.getAllCryptos();
+  constructor(private cryptoService: CryptoService, private _snackBar: MatSnackBar, private dialog: MatDialog) { }
+
+  ngOnInit() {
+    this.subs.add(this.cryptoService.list()
+      .subscribe((res) => {
+        console.log(res);
+        this.dataArray = res;
+        this.dataSource = new MatTableDataSource<CryptoCurrency>(this.dataArray);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       },
-      error => {
-        console.log(error);
-      });
+        (err: HttpErrorResponse) => {
+          console.log(err);
+        }));
   }
 
-  // Search items
-  searchByTitle(): void {
-    this.cryptoService.filterByTitle(this.searchTitle)
-      .subscribe(
-        cryptos => {
-          this.cryptos = cryptos;
-        },
-        error => {
-          console.log(error);
-        });
+  newCrypto(){
+    this.dialog.open(DetailComponent);
   }
 
-  clicked(mycrypto: CryptoCurrency) {
-    this.dialog.open(DetailComponent, {data : mycrypto}); 
+  detailsCrypto(id: number) {
+    this.dialog.open(DetailComponent, {data : id });
+  }
+
+  editCrypto(id: number) {
+    this.dialog.open(DetailComponent, {data : id });
+  }
+
+  deleteCrypto(id: number) {
+    this.dialog.open(DeleteComponent, {data : id })
+  .afterClosed()
+  .subscribe(() => this.ngOnInit());
+
+  }
+
+  getAllCryptos(): void {
+    this.cryptos = this.cryptoService.list();
+  }
+
+  ngOnDestroy() {
+    if (this.subs) {
+      this.subs.unsubscribe();
+    }
+  }
+
+  public openRecord(id: number, name: string): void {
+    this._snackBar.open(`Record ${id} ${name} `, 'Close', {
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });    
   }
 }

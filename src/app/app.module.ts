@@ -11,9 +11,9 @@ import { MaterialModule } from './shared/material.module';
 import { SidenavComponent } from './core/pages/sidenav/sidenav.component';
 import { ToolbarComponent } from './core/pages/toolbar/toolbar.component';
 import { MainContentComponent } from './core/pages/main-content/main-content.component';
-import { CreateComponent } from './crypto/pages/dialogs/create/create.component';
 import { DetailComponent } from './crypto/pages/dialogs/detail/detail.component';
 import { ListComponent } from './crypto/pages/dialogs/list/list.component';
+import { DeleteComponent } from './crypto/pages/dialogs/delete/delete.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +23,7 @@ import { ListComponent } from './crypto/pages/dialogs/list/list.component';
     MainContentComponent,
     DetailComponent,
     ListComponent,
-    CreateComponent
+    DeleteComponent
   ],
   imports: [
     HttpClientModule,

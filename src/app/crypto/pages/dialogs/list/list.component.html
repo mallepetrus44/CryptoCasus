@@ -1,32 +1,47 @@
+<button mat-stroked-button color="primary" (click)="newCrypto()">New Crypto</button>
 
-<div class="col-md-12">
-      <h4>Crypto List</h4>
+<div class="mat-elevation-z1">
+    <table mat-table [dataSource]="dataSource" matSort>
+
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Id </th>
+        <td mat-cell *matCellDef="let element" class="left-text"> {{element.id}}
+      </ng-container>
   
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Ticker</th>
-            <th scope="col">Name</th>
-            <th scope="col">Number of Coins</th>
-            <th scope="col">Market Capacity</th>
-            <th scope="col" style="min-width: 150px;">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let crypto of cryptos;">
-            <th scope="row">{{crypto.id}}</th>
-            <td><b>{{crypto.ticker}}</b></td>
-            <td>{{crypto.name}}</td>
-            <td>{{crypto.numberOfCoins}}</td>
-            <td>{{crypto.marketCap}}</td>
-            <td>
-              <button type="button" class="btn btn-danger" routerLink="/crypto/{{crypto.id}}">Edit</button>
-              <button type="button" class="btn btn-warning" (click)="deleteCrypto(crypto.id)">Delete</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <ng-container matColumnDef="ticker">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Ticker </th>
+        <td mat-cell *matCellDef="let element" class="left-text"> {{element.ticker}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let element" class="left-text"> {{element.name}} </td>
+      </ng-container>
+
+
+      <ng-container matColumnDef="numberOfCoins">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Number of coins</th>
+        <td mat-cell *matCellDef="let element" class="left-text"> {{element.numberOfCoins | number}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="marketCap">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Market Capacity </th>
+        <td mat-cell *matCellDef="let element" class="left-text">{{element.marketCap | currency}} </td>
+      </ng-container>
+  
+      <ng-container matColumnDef="action">
+        <th mat-header-cell *matHeaderCellDef  mat-sort-header> Action</th>
+        <td mat-cell *matCellDef="let element" class="left-text">  
+            <button mat-stroked-button color="primary" (click)="detailsCrypto(element.id)">Detail</button>
+            <button mat-stroked-button color="primary" (click)="editCrypto(element.id)">Edit</button>
+            <button mat-stroked-button color="primary" (click)="deleteCrypto(element.id)">Delete</button>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5]"></mat-paginator>
 </div>
-
-
+  

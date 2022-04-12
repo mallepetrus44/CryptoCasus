@@ -9,6 +9,7 @@ import { CryptoCurrency } from 'src/app/core/models/cryptocurrency';
 export class CryptoService {
 
   apiUrl: string = 'http://localhost:8080/api/currencies';
+  
   headers = new HttpHeaders().set('Content-Type', 'application/json');
 
 

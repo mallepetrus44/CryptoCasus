@@ -1,32 +1,25 @@
-<div style="width: 500px; margin: auto;">
-    <div *ngIf="currentCrypto" class="edit-form">
-      <h4>crypto</h4>
-      <form>
-        <div class="form-group">
-          <label for="title">Title</label>
-          <input
-            type="text"
-            class="form-control"
-            id="name"
-            [(ngModel)]="currentCrypto.name"
-            name="name"
-          />
-        </div>
-        <div class="form-group">
-          <label for="shortname">Shortname</label>
-          <input
-            type="text"
-            class="form-control"
-            id="shortname"
-            [(ngModel)]="currentCrypto.ticker"
-            name="shortname"
-          />
-        </div>
-  
-      </form>
-  
-      <button type="button" class="btn btn-danger" (click)="updateCrypto()" >Update</button>
-      <button type="button" class="btn btn-warning" (click)="deleteCrypto()">Delete</button>
-
-    </div>
+<div *ngIf="!currentCrypto">
+  <mat-spinner></mat-spinner>
 </div>
+
+<div *ngIf="currentCrypto">
+
+  <mat-card class="card">
+      <mat-card-header class="header">
+          <mat-card-title class="title">
+              <h2>{{currentCrypto.name}}</h2>
+          </mat-card-title>
+          <mat-card-subtitle class="subtitle"><b>{{currentCrypto.ticker}}</b></mat-card-subtitle>
+      </mat-card-header>
+      <br>
+      <mat-card-content class="card_content">
+         <b>Number of Coins :</b> <h2>{{currentCrypto.numberOfCoins | number}}</h2>
+         <br>
+         <b>Market Capacity :</b> <h2>{{currentCrypto.marketCap | currency }}</h2>
+         <br>
+      </mat-card-content>
+  </mat-card>
+</div>
+
+
+

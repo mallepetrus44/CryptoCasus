@@ -1,0 +1,25 @@
+<div *ngIf="!currentCrypto">
+    <mat-spinner></mat-spinner>
+  </div>
+  
+  <div *ngIf="currentCrypto">
+  
+    <mat-card class="card">
+        <h1>Are you sure you want to delete: </h1>
+        <mat-card-header class="header">
+            <mat-card-title class="title">                
+                <h2>{{currentCrypto.name}}</h2>
+            </mat-card-title>
+            <mat-card-subtitle class="subtitle"><b>{{currentCrypto.ticker}}</b></mat-card-subtitle>
+        </mat-card-header>
+        <br>
+        <mat-card-content class="card_content">
+           <b>Number of Coins :</b> <h2>{{currentCrypto.numberOfCoins | number}}</h2>
+           <br>
+           <b>Market Capacity :</b> <h2>{{currentCrypto.marketCap | currency }}</h2>
+           <br>
+        </mat-card-content>
+        <button mat-button (click)="yesDelete()" mat-dialog-close="true"> Delete </button>
+        <button mat-button mat-dialog-close="true"> Cancel </button>
+    </mat-card>
+  </div>
