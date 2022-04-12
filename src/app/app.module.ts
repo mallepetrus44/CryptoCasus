@@ -17,6 +17,7 @@ import { DeleteComponent } from './crypto/pages/dialogs/delete/delete.component'
 import { CryptoService } from './crypto/service/crypto.service';
 import { CreateComponent } from './crypto/pages/dialogs/create/create.component';
 import { EditComponent } from './crypto/pages/dialogs/edit/edit.component';
+import { CurrencyMaskModule } from 'ng2-currency-mask';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { EditComponent } from './crypto/pages/dialogs/edit/edit.component';
     BrowserAnimationsModule,
     FlexLayoutModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    CurrencyMaskModule
   ],
   providers: [CryptoService],
   bootstrap: [AppComponent]
