@@ -1,28 +1,47 @@
-<div style="width: 500px; margin: auto;">
     <div class="submit-form">
       <div *ngIf="!isCryptoAdded">
-
-        <div class="form-group">
-          <label for="title">Ticker</label>
-          <input type="text" class="form-control" id="ticker" required [(ngModel)]="crypto.ticker" name="ticker" />
-        </div>
-  
-        <div class="form-group">
-          <label for="description">Name</label>
-          <input class="form-control" id="name" required [(ngModel)]="crypto.name" name="name" />
-        </div>
-  
-        <div class="form-group">
-          <label for="description">Number of Coins</label>
-          <input mat-inputclass="form-control" id="numberOfCoins" required [(ngModel)]="crypto.numberOfCoins" name="numberOfCoins" />
-        </div>
-
-        <div class="form-group">
-          <label for="description">Market Capacity</label>
-          <input class="form-control" id="marketCap" required [(ngModel)]="crypto.marketCap" name="marketCap" />
-        </div>
-
-        <button (click)="addCrypto()" mat-dialog-close="true" class="btn btn-success" >Create</button>
-    </div>
+        <form>
+            <mat-form-field class="form-group" appearance="fill">
+              <label for="title">Ticker</label>
+              <input matInput 
+                type="text"
+                class="form-control"
+                id="ticker"
+                [(ngModel)]="currentCrypto.ticker"
+                name="ticker"
+              />
+        </mat-form-field>
+        <mat-form-field class="form-group" appearance="fill">
+              <label for="name">Name</label>
+              <input matInput 
+                type="text"
+                class="form-control"
+                id="name"
+                [(ngModel)]="currentCrypto.name"
+                name="name"
+              />
+            </mat-form-field>
+            <mat-form-field class="form-group" appearance="fill">
+                <label for="numberOfCoins">Number of coins</label>
+                <input matInput
+                  type="text"
+                  class="form-control"
+                  id="numberOfCoins"
+                  [(ngModel)]="currentCrypto.numberOfCoins"
+                  name="numberOfCoins"
+                />
+            </mat-form-field>
+              <mat-form-field class="form-group" appearance="fill">
+                <label for="marketCap">Market capacity</label>
+                <input matInput currencyMask
+                  type="text"
+                  class="form-control"
+                  id="marketCap"
+                  [(ngModel)]="currentCrypto.marketCap"
+                  name="marketCap"
+                />
+            </mat-form-field>
+          </form>
+        <button mat-button (click)="addCrypto()" mat-dialog-close="true" class="btn btn-success" >Create</button>
     </div>
 </div>
