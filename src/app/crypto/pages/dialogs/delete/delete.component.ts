@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { CryptoService } from 'src/app/crypto/service/crypto.service';
 
 @Component({
@@ -13,7 +12,7 @@ export class DeleteComponent implements OnInit {
   currentCrypto: any;
   id!: number;
 
-  constructor( @Inject(MAT_DIALOG_DATA) public data: number, private cryptoService: CryptoService, private router: Router) {
+  constructor( @Inject(MAT_DIALOG_DATA) public data: number, private cryptoService: CryptoService) {
     this.id = data;
      }
 

@@ -1,0 +1,52 @@
+<div style="width: 500px; margin: auto;">
+    <div *ngIf="currentCrypto" class="edit-form">
+      <h4>Crypto</h4>
+      <form>
+        <div class="form-group">
+          <label for="title">Ticker</label>
+          <input
+            type="text"
+            class="form-control"
+            id="ticker"
+            [(ngModel)]="currentCrypto.ticker"
+            name="ticker"
+          />
+        </div>
+        <div class="form-group">
+          <label for="description">Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="name"
+            [(ngModel)]="currentCrypto.name"
+            name="name"
+          />
+        </div>
+        <div class="form-group">
+            <label for="description">Number of coins</label>
+            <input
+              type="text"
+              class="form-control"
+              id="numberOfCoins"
+              [(ngModel)]="currentCrypto.numberOfCoins"
+              name="numberOfCoins"
+            />
+          </div>
+          <div class="form-group">
+            <label for="description">Market capacity</label>
+            <input
+              type="text"
+              class="form-control"
+              id="marketCap"
+              [(ngModel)]="currentCrypto.marketCap"
+              name="marketCap"
+            />
+          </div>
+      </form>
+  
+      <button type="button" class="btn btn-danger" (click)="updateCrypto()" mat-dialog-close="true" >Update</button>
+      <button type="button" class="btn btn-warning" mat-dialog-close="true">Cancel</button>
+
+    </div>
+  
+  </div>

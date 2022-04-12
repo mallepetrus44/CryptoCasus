@@ -1,6 +1,5 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { CryptoService } from 'src/app/crypto/service/crypto.service';
 
 @Component({
@@ -13,7 +12,7 @@ export class DetailComponent implements OnInit {
   currentCrypto: any;
   id!: number;
 
-  constructor( @Inject(MAT_DIALOG_DATA) public data: number, private cryptoService: CryptoService, private router: Router) {
+  constructor( @Inject(MAT_DIALOG_DATA) public data: number, private cryptoService: CryptoService) {
     this.id = data;
      }
 
@@ -32,33 +31,4 @@ export class DetailComponent implements OnInit {
           console.log(error);
         });
   }
-
-  ngOnDestroy(){
-    this.router.navigateByUrl('/cryptos');
-  }
-
-  // updateCrypto(): void {
-  //   this.cryptoService.update(this.currentCrypto.id, this.currentCrypto)
-  //     .subscribe(
-  //       response => {
-  //         console.log(response);
-  //         this.message = 'The crypto was updated!';
-  //       },
-  //       error => {
-  //         console.log(error);
-  //       });
-  // }
-
-  // deleteCrypto(): void {
-  //   this.cryptoService.delete(this.currentCrypto.id)
-  //     .subscribe(
-  //       response => {
-  //         console.log(response);
-  //         this.router.navigate(['/cryptos']);
-  //       },
-  //       error => {
-  //         console.log(error);
-  //       });
-  //     }
-    
 }

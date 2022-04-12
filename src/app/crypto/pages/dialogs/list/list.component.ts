@@ -2,14 +2,15 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Subscription } from 'rxjs';
 import { CryptoCurrency } from 'src/app/core/models/cryptocurrency';
 import { CryptoService } from 'src/app/crypto/service/crypto.service';
+import { CreateComponent } from '../create/create.component';
 import { DeleteComponent } from '../delete/delete.component';
 import { DetailComponent } from '../detail/detail.component';
+import { EditComponent } from '../edit/edit.component';
 
 @Component({
   selector: 'app-list',
@@ -30,7 +31,7 @@ export class ListComponent implements OnInit {
 
   private dataArray: any;
 
-  constructor(private cryptoService: CryptoService, private _snackBar: MatSnackBar, private dialog: MatDialog) { }
+  constructor(private cryptoService: CryptoService, private dialog: MatDialog) { }
 
   ngOnInit() {
     this.subs.add(this.cryptoService.list()
@@ -47,7 +48,9 @@ export class ListComponent implements OnInit {
   }
 
   newCrypto(){
-    this.dialog.open(DetailComponent);
+    this.dialog.open(CreateComponent)
+    .afterClosed()
+     .subscribe(() => this.ngOnInit());
   }
 
   detailsCrypto(id: number) {
@@ -55,14 +58,15 @@ export class ListComponent implements OnInit {
   }
 
   editCrypto(id: number) {
-    this.dialog.open(DetailComponent, {data : id });
+    this.dialog.open(EditComponent, {data : id })
+    .afterClosed()
+      .subscribe(() => this.ngOnInit());
   }
 
   deleteCrypto(id: number) {
     this.dialog.open(DeleteComponent, {data : id })
-  .afterClosed()
-  .subscribe(() => this.ngOnInit());
-
+    .afterClosed()
+      .subscribe(() => this.ngOnInit());
   }
 
   getAllCryptos(): void {
@@ -73,12 +77,5 @@ export class ListComponent implements OnInit {
     if (this.subs) {
       this.subs.unsubscribe();
     }
-  }
-
-  public openRecord(id: number, name: string): void {
-    this._snackBar.open(`Record ${id} ${name} `, 'Close', {
-      horizontalPosition: 'center',
-      verticalPosition: 'top',
-    });    
   }
 }
