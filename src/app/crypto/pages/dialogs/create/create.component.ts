@@ -24,29 +24,10 @@ export class CreateComponent implements OnInit {
   };
   isCryptoAdded = false;
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: number, private cryptoService: CryptoService) { 
-    this.id = data;
-  }
+  constructor(private cryptoService: CryptoService) { }
 
-  ngOnInit(): void { 
-    if(!this.id==null){
-      this.getCrypto(this.id);
-    }
-  }
+  ngOnInit(): void { }
 
-  getCrypto(id: number | null): void {
-    this.cryptoService.getItem(id)
-      .subscribe(
-        (crypto: null) => {
-          this.currentCrypto = crypto;
-          console.log(crypto);
-        },
-        (error: any) => {
-          console.log(error);
-        });
-  }
-
-  // Add New
   addCrypto(): void {
     const data = {
       ticker: this.crypto.ticker,
@@ -67,17 +48,6 @@ export class CreateComponent implements OnInit {
         error => {
           console.log(error);
         });
-  }
-
-  // Reset on adding new
-  newCrypto(): void {
-    this.isCryptoAdded = false;
-    this.crypto = {
-      ticker: '',
-      name: '',
-      numberOfCoins: 0,
-      marketCap: 0
-    };
   }
 
 }
